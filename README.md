@@ -47,7 +47,12 @@ LoyaltyHooks uses Uniswap v4 hooks to monitor and respond to specific actions wi
 WIP
 
 ## Usage
+loyaltyPoints translate to dynamic fees set for a given swap.
 
-WIP
+- minimum loyalty points = 0 , maximum = 100.
+- swaps that buy token, add loyalty points. amount of points added is a function of swap amount divided by liquidity in the pool.
+- swaps that sell token, subtract loyalty points. amount of points subtracted is a function of swap amount divided by liquidity in the pool.
+- record latest buy & sell swaps executed by any address. When that address swaps the token, hook checks how much time has passed since last swap of same direction. For buys, it adds a multiplier on loyalty points gained if this address has bought more recently than when they last sold, and the last time they bought is within INTERVAL parameter (set to 1 day by default). For sells, adds a multiplier on loyalty points subtracted if this address has sold more recently than when they last bought, and the last time they sold is within INTERVAL.
+- adjusts fees on any trade based on loyalty points: 100 points = minimum fee of 0.1% , 0 points = maximum fee of 3%, with any other number of points in between linearly translating to a fee between 0.1% and 3%
 
 
